@@ -46,9 +46,13 @@ export interface SanitizedSocial {
   linkedin?: string;
   twitter?: string;
   mastodon?: string;
+  researchGate?: string;
   facebook?: string;
   instagram?: string;
+  reddit?: string;
+  threads?: string;
   youtube?: string;
+  udemy?: string;
   dribbble?: string;
   behance?: string;
   medium?: string;
@@ -85,6 +89,15 @@ export interface SanitizedEducation {
   degree?: string;
   from: string;
   to: string;
+}
+
+export interface SanitizedPublication {
+  title: string;
+  conferenceName?: string;
+  journalName?: string;
+  authors?: string;
+  link?: string;
+  description?: string;
 }
 
 export interface SanitizedGoogleAnalytics {
@@ -132,6 +145,7 @@ export interface SanitizedConfig {
   experiences: Array<SanitizedExperience>;
   educations: Array<SanitizedEducation>;
   certifications: Array<SanitizedCertification>;
+  publications: Array<SanitizedPublication>;
   googleAnalytics: SanitizedGoogleAnalytics;
   hotjar: SanitizedHotjar;
   blog: SanitizedBlog;

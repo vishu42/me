@@ -123,6 +123,11 @@ interface Social {
   mastodon?: string;
 
   /**
+   * ResearchGate username
+   */
+  researchGate?: string;
+
+  /**
    * Facebook
    */
   facebook?: string;
@@ -133,9 +138,24 @@ interface Social {
   instagram?: string;
 
   /**
+   * Reddit
+   */
+  reddit?: string;
+
+  /**
+   * Threads
+   */
+  threads?: string;
+
+  /**
    * YouTube
    */
   youtube?: string;
+
+  /**
+   * Udemy
+   */
+  udemy?: string;
 
   /**
    * Dribbble
@@ -190,7 +210,7 @@ interface Social {
 
 interface Resume {
   /**
-   * Resume file urlm
+   * Resume file url
    */
   fileUrl?: string;
 }
@@ -215,6 +235,15 @@ interface Education {
   degree?: string;
   from: string;
   to: string;
+}
+
+interface Publication {
+  title: string;
+  conferenceName?: string;
+  journalName?: string;
+  authors?: string;
+  link?: string;
+  description?: string;
 }
 
 interface GoogleAnalytics {
@@ -369,6 +398,11 @@ interface Config {
    * Education list
    */
   educations?: Array<Education>;
+
+  /**
+   * Publication list
+   */
+  publications?: Array<Publication>;
 
   /**
    * Resume

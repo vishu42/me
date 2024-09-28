@@ -1,13 +1,13 @@
+import { hotjar } from 'react-hotjar';
 import { LOCAL_STORAGE_KEY_NAME } from '../constants';
 import { DEFAULT_CUSTOM_THEME } from '../constants/default-custom-theme';
 import { DEFAULT_THEMES } from '../constants/default-themes';
+import colors from '../data/colors.json';
 import {
   SanitizedConfig,
   SanitizedHotjar,
   SanitizedThemeConfig,
 } from '../interfaces/sanitized-config';
-import { hotjar } from 'react-hotjar';
-import colors from '../data/colors.json';
 
 export const isDarkishTheme = (appliedTheme: string): boolean => {
   return ['dark', 'halloween', 'forest', 'black', 'luxury', 'dracula'].includes(
@@ -66,7 +66,10 @@ export const getSanitizedConfig = (
         mastodon: config?.social?.mastodon,
         facebook: config?.social?.facebook,
         instagram: config?.social?.instagram,
+        reddit: config?.social?.reddit,
+        threads: config?.social?.threads,
         youtube: config?.social?.youtube,
+        udemy: config?.social?.udemy,
         dribbble: config?.social?.dribbble,
         behance: config?.social?.behance,
         medium: config?.social?.medium,
@@ -77,14 +80,30 @@ export const getSanitizedConfig = (
         email: config?.social?.email,
         skype: config?.social?.skype,
         telegram: config?.social?.telegram,
+        researchGate: config?.social?.researchGate,
       },
       resume: {
         fileUrl: config?.resume?.fileUrl || '',
       },
       skills: config?.skills || [],
-      experiences: config?.experiences || [],
-      certifications: config?.certifications || [],
-      educations: config?.educations || [],
+      experiences:
+        config?.experiences?.filter(
+          (experience) =>
+            experience.company ||
+            experience.position ||
+            experience.from ||
+            experience.to,
+        ) || [],
+      certifications:
+        config?.certifications?.filter(
+          (certification) =>
+            certification.year || certification.name || certification.body,
+        ) || [],
+      educations:
+        config?.educations?.filter(
+          (item) => item.institution || item.degree || item.from || item.to,
+        ) || [],
+      publications: config?.publications?.filter((item) => item.title) || [],
       googleAnalytics: {
         id: config?.googleAnalytics?.id,
       },
@@ -193,7 +212,7 @@ export const skeleton = ({
 export const setupHotjar = (hotjarConfig: SanitizedHotjar): void => {
   if (hotjarConfig?.id) {
     const snippetVersion = hotjarConfig?.snippetVersion || 6;
-    hotjar.initialize(parseInt(hotjarConfig.id), snippetVersion);
+    hotjar.initialize({ id: parseInt(hotjarConfig.id), sv: snippetVersion });
   }
 };
 
